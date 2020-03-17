@@ -7,7 +7,7 @@ Dates 3/16-3/25
 **My Name: Konstantin Kishinsky**
 
 
-**Project Name: Pixelbot**
+**Project Name: Eye4Color**
 
 
 **Is your project New or Old?**
@@ -20,25 +20,24 @@ Solo
 
 ## Description
 
-This is a new project I will be starting. The goal of this project is to create a program that uses a Markov Chain to generate images. I want to do this because it is a technical project that focuses on using a program to create things via probability and it expands on all the concepts I have studied in programing thus far.
+The goal of this project is to create a program that will analyze the color composition of images and output the result of the analysis to the user. Furthermore the program will also recommend a color palette that would work well in accommodating the images that it analyzed.
+
+This project is built for artists and web-designers. It will allow them to check the color composition of their images and get color palettes that are created specifically just for their work.
 
 ## Challenges I Anticipate
 
-The hardest part of this project will be manipulating image files to both read and write pixels into and from them.
-Also making the program output coherent images rather than ones created through pure probability.
-Optimizing the program to run quickly would also be another challenge faced throughout the entirety of the project.
+The hardest part of the program I feel would be writing the math that would be used to analyze the images as well as the program that creates the color palette. Since both require specific math around colors, the use of which is intrinsically tied to the human eye and artist interpretation.
 
 ## Skateboard
 
-Build a program that takes in one image and outputs an image based on the structure of the first.
-
+Build a program that takes in one image and outputs a basic analysis on the average color of the image, the absolute average color, the most prevalent color, and least prevalent color.
 **Start coding and finish “Skateboard” feature before beginning “Bike”.**
 
 ## Bike
-Allow the program to take in multiple images to build one.
+Build the program that will output a suggested color palette for the image(s).
 
 ## Car
-Allow the user to set N length of the markov chain, and the dimensions of the output image.
+Integrate the program into a website, into which users can upload images to get this sort of analysis.
 
 ## Wireframes
 
