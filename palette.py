@@ -49,7 +49,7 @@ def formatrgbd(H, C, X):
 
 
 def calcRGB(rgbd, m):
-    return ((rgbd[0] + m) * 255, (rgbd[1] + m) * 255, (rgbd[2] + m) * 255)
+    return (((rgbd[0] + m) * 255)//1, ((rgbd[1] + m) * 255)//1, ((rgbd[2] + m) * 255)//1)
 
 
 def getRGB(hsl):
@@ -65,7 +65,7 @@ def getRGB(hsl):
     pass
 
 
-def averageHue(hue1, hue2):
+def _getaverageHue(hue1, hue2):
     hueDiff = abs(hue1 - hue2)
     X = 0
     if hueDiff <= 180:
@@ -77,6 +77,23 @@ def averageHue(hue1, hue2):
     return hue
 
 
+def complimentaryHues(hsl):
+    mainDiff = (hsl[0] + 180) % 360
+    hueDiff = (hsl[0] + 150) % 360
+    hueDiff2 = (abs(hsl[0] + 200)) % 360
+    return [(mainDiff, 1, 0.5), (hueDiff, 1, 0.5), (hueDiff2, 1, 0.5)]
+
+    # return [(mainDiff, hsl[1], hsl[2]), (hueDiff, hsl[1], hsl[2]), (hueDiff2, hsl[1], hsl[2])]
+
+
+def supportingHues(hsl):
+    mainDiff = (hsl[0] + 30) % 360
+    hueDiff = (hsl[0] + 50) % 360
+    hueDiff2 = (abs(hsl[0] - 30)) % 360
+    return [(mainDiff, 1, 0.5), (hueDiff, 1, 0.5), (hueDiff2, 1, 0.5)]
+    # return [(mainDiff, hsl[1], hsl[2]), (hueDiff, hsl[1], hsl[2]), (hueDiff2, hsl[1], hsl[2])]
+
+
 def averageHslHue(hsl1, hsl2):
-    hue = averageHue(hsl1[0], hsl2[0])
+    hue = _getaverageHue(hsl1[0], hsl2[0])
     return (hue, hsl1[1], hsl1[2])

@@ -1,7 +1,6 @@
 import sys
-import colorsys
 from PIL import Image
-from palette import getHSL, getRGB, averageHslHue
+from palette import getHSL, getRGB, averageHslHue, complimentaryHues, supportingHues
 
 
 def loadFilePixel(filename):
@@ -107,17 +106,67 @@ def countLeastCol(pxbox):
     return pxList[0:3]
 
 
-if __name__ == "__main__":
-    images = sys.argv[1]
-    pxbox = loopThroughPx(loadFilePixel(images))
+def clamp(n, minn, maxn):
+    if n < minn:
+        return minn
+    elif n > maxn:
+        return maxn
+    else:
+        return n
 
-    print(countTrueAverageColor(pxbox))
+
+def getAdjustedHues(lis, avgcol, contrast=0):
+    comphue = lis
+    hslavg = getHSL(avgcol)
+    comphue_lst = []
+    for i in range(len(comphue)):
+        hue = comphue[i]
+
+        if contrast == 0:
+            hue = (hue[0], (hslavg[1] + 0.5)/2, clamp(((hslavg[2] + 0.5)/2), 0.3, 0.65))
+        else:
+            hue = (hue[0], clamp((abs(1 - hslavg[1]) + hue[1])/2, 0.3, 0.6), clamp((abs(1 - hslavg[2]) + hue[2] + 0.5)/3, 0.3, 0.65))
+
+        hue = getRGB(hue)
+        comphue_lst.append(hue)
+    return comphue_lst
+
+
+def runImage(filename):
+    pxbox = loopThroughPx(loadFilePixel(filename))
     avg = countAverageColor(pxbox)
-    print(avg)
+    trueavg = countTrueAverageColor(pxbox)
     hsl = getHSL(avg)
-    hsl2 = getHSL((36, 150, 237))
-    print(hsl)
-    avghue = averageHslHue(hsl, hsl2)
-    print(getRGB(avghue))
-    print(countMostCol(pxbox))
-    print(countLeastCol(pxbox))
+    hsl2 = getHSL(trueavg)
+    mosthue = countMostCol(pxbox)
+
+    avghue_hsl = averageHslHue(hsl, hsl2)
+    comphue = complimentaryHues(hsl)
+    suphue = supportingHues(hsl)
+
+    comphue_lst = getAdjustedHues(comphue, trueavg, 1)
+    suphue_lst = getAdjustedHues(suphue, trueavg)
+
+
+
+    print("Image: " + filename)
+    print("Average color: ", end="")
+    print(avg)
+    print("True average: ", end="")
+    print(trueavg)
+    print("Average hue: ", end="")
+    print(getRGB(avghue_hsl))
+    print("Suggested complimentary colors:")
+    for i in comphue_lst:
+        print(i, end=", ")
+    print("")
+    print("Suggested analogous colors:")
+    for i in suphue_lst:
+        print(i, end=", ")
+    print("")
+    print("")
+
+
+if __name__ == "__main__":
+    for arg in sys.argv[1:]:
+        runImage(arg)
