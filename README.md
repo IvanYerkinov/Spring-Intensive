@@ -1,17 +1,17 @@
-Eye4Color
+## Eye4Color
 
 This is a python console application that processes image files and outputs suggested color palettes in an RGB format.
 
-Before use:
+#### Before use:
 Download the eye4color.py and palette.py files and place them in the same directory.
 Place any image files you wish to process in the same directory as the two files.
 
 
-Dependencies:
+#### Dependencies:
 PILLOW
 
 
-Use:
+### Use:
 Call the following command in the console:
 
 python3 eye4color.py [image-file names]
