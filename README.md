@@ -14,7 +14,7 @@ PILLOW
 ### Use:
 Call the following command in the console:
 
-python3 eye4color.py [image-file names]
+> python3 eye4color.py [image-file names]
 
 Replace the [image-file names] with the names of the images you want to process.
 The program can process multiple at once, just separate their names with a space.
